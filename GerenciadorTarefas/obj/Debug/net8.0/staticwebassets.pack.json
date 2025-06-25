@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\ASP.NET\\GerenciadorTarefas\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.GerenciadorTarefas.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.GerenciadorTarefas.props",
+      "PackagePath": "build\\GerenciadorTarefas.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.GerenciadorTarefas.props",
+      "PackagePath": "buildMultiTargeting\\GerenciadorTarefas.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.GerenciadorTarefas.props",
+      "PackagePath": "buildTransitive\\GerenciadorTarefas.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
