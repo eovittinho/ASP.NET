@@ -1,1 +1,30 @@
-@model IEnumerable<GerenciadorTarefas.Models.Tarefa>
+@model GerenciadorTarefas.Models.Tarefa
+
+<h2 class="mb-4" style="color: #4b367c; font-weight: 700;">Nova Tarefa</h2>
+
+<form asp-action="Create" method="post" class="mb-4">
+    <div class="mb-3">
+        <label asp-for="Titulo" class="form-label"></label>
+        <input asp-for="Titulo" class="form-control" required />
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Descricao" class="form-label"></label>
+        <textarea asp-for="Descricao" class="form-control" rows="4" required></textarea>
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+
+    <div class="form-check mb-3">
+        <input type="hidden" asp-for="Concluida" value="false" />
+        <input asp-for="Concluida" class="form-check-input" />
+        <label asp-for="Concluida" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="background-color:#6e57b3; border:none;">Salvar Tarefa </button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

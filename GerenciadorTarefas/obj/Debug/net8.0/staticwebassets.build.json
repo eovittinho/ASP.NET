@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "iBnRhFW7LJN/1taranGIFME7p1QjFT8aWlVkwkU8iac=",
+  "Hash": "LBNUBfqVeiAWOzMc9Z++bd3+RtL6DyctYIxXHCZ1rtA=",
   "Source": "GerenciadorTarefas",
   "BasePath": "_content/GerenciadorTarefas",
   "Mode": "Default",
@@ -34,6 +34,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\index.html"
+    },
+    {
+      "Identity": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\ASP.NET\\GerenciadorTarefas\\wwwroot\\NovaTarefa.html",
+      "SourceId": "GerenciadorTarefas",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\ASP.NET\\GerenciadorTarefas\\wwwroot\\",
+      "BasePath": "_content/GerenciadorTarefas",
+      "RelativePath": "NovaTarefa.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\NovaTarefa.html"
     },
     {
       "Identity": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\ASP.NET\\GerenciadorTarefas\\wwwroot\\Views\\tarefas\\Create.cshtml",

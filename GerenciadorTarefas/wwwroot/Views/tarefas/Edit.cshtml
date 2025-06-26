@@ -1,1 +1,14 @@
 @model IEnumerable<GerenciadorTarefas.Models.Tarefa>
+
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Create(Tarefa tarefa)
+{
+    if (ModelState.IsValid)
+    {
+        _context.Tarefas.Add(tarefa);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index)); // Volta para a lista
+    }
+    return View(tarefa); // Se erro, permanece na tela de cadastro
+}

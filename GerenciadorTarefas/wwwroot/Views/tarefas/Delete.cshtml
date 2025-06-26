@@ -1,1 +1,14 @@
-@model IEnumerable<GerenciadorTarefas.Models.Tarefa>
+@model GerenciadorTarefas.Models.Tarefa
+
+<h2>Excluir Tarefa</h2>
+<div>
+    <h4>Tem certeza que deseja excluir esta tarefa?</h4>
+    <div>
+        <strong>@Model.Titulo</strong> - @Model.Descricao
+    </div>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Excluir</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

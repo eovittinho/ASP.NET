@@ -5,7 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configura a conexão com SQL Server via appsettings.json
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
+    ));
 
 // Adiciona suporte a controllers e views (MVC)
 builder.Services.AddControllersWithViews();

@@ -1,28 +1,72 @@
 @model IEnumerable<GerenciadorTarefas.Models.Tarefa>
 
-<h2>Lista de Tarefas</h2>
-<a asp-action="Create">Nova Tarefa</a>
-<table>
-    <thead>
-        <tr>
-            <th>Título</th>
-            <th>Descrição</th>
-            <th>Concluída</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Titulo</td>
-            <td>@item.Descricao</td>
-            <td>@item.Concluida</td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>Gerenciador de Tarefas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top shadow" style="background-color: #b19cd9;">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/" style="color: white;">Gerenciador de Tarefas</a>
+        </div>
+    </nav>
+
+    <div class="container mt-5 p-4 rounded shadow-lg" style="background: white;">
+        <h1 class="text-center mb-4" style="color: #4b367c;">Gerenciador de Tarefas</h1>
+
+        <div class="d-flex justify-content-center mb-4">
+            <a href="@Url.Action("Create", "Tarefas")" class="btn btn-primary"
+               style="background-color: #6e57b3; border: none; font-weight: 600; padding: 10px 25px; border-radius: 8px;">
+                + Adicionar Nova Tarefa
+            </a>
+        </div>
+
+        <table class="table table-striped table-hover">
+            <thead style="background-color: #b19cd9; color: white;">
+                <tr>
+                    <th>Concluída</th>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tarefa in Model)
+                {
+                    <tr>
+                        <td>
+                            <form method="post" asp-action="ToggleConcluida" asp-route-id="@tarefa.Id" style="display:inline;">
+                                <input type="checkbox" name="Concluida" onchange="this.form.submit()" @(tarefa.Concluida ? "checked" : "") />
+                            </form>
+                        </td>
+                        <td>@tarefa.Titulo</td>
+                        <td>@tarefa.Descricao</td>
+                        <td>
+                            <a href="@Url.Action("Edit", "Tarefas", new { id = tarefa.Id })" class="btn btn-sm" style="background-color: #6e57b3; color: white; border:none; margin-right:5px;">
+                                Editar
+                            </a>
+                            <form method="post" asp-action="Delete" asp-route-id="@tarefa.Id" style="display:inline;" onsubmit="return confirm('Confirma exclusão da tarefa?');">
+                                <button type="submit" class="btn btn-sm" style="background-color: #d9534f; color: white; border:none;">
+                                    Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">Nenhuma tarefa cadastrada.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

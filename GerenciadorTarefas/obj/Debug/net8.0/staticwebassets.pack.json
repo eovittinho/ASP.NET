@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\ASP.NET\\GerenciadorTarefas\\wwwroot\\NovaTarefa.html",
+      "PackagePath": "staticwebassets\\NovaTarefa.html"
+    },
+    {
       "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\ASP.NET\\GerenciadorTarefas\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },

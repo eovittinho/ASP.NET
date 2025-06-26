@@ -1,5 +1,3 @@
-<TarefasWebApp.Models.Tarefa>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,84 +5,175 @@
     <title>Gerenciador de Tarefas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" 
-          integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <!-- CSS personalizado -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/css/style.css" rel="stylesheet" />
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            flex: 1 0 auto;
+        }
+        footer {
+            flex-shrink: 0;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Navbar Bootstrap com bg-purple -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-purple sticky-top shadow">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="/">Gerenciador de Tarefas</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" 
-          aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top shadow" style="background-color: #b19cd9;">
+    <div class="container d-flex justify-content-center">
+        <span class="navbar-brand fw-bold mx-auto" style="color: white; font-size: 1.6rem;">
+            📝 Gerenciador de Tarefas
+        </span>
+    </div>
+</nav>
+
+<!-- Conteúdo -->
+<div class="container mt-5 p-4 rounded shadow-lg bg-white">
+    <h1 class="text-center mb-4" style="color: #4b367c; font-weight: 700;">Gerenciador de Tarefas</h1>
+
+    <div class="d-flex justify-content-center mb-4">
+        <button id="btnMostrarFormulario" class="btn btn-primary"
+                style="background-color: #6e57b3; border: none; font-weight: 600; border-radius: 8px;">
+            + Adicionar Nova Tarefa
         </button>
-      
-        <div class="collapse navbar-collapse" id="navbarMenu">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Início</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/Tarefas">Lista de Tarefas</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/Tarefas/Create">Nova Tarefa</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container mt-4">
-        <h1>Gerenciador de Tarefas</h1>
-
-        <a href="/Tarefas/Create" class="btn btn-add">+ Adicionar Nova Tarefa</a>
-
-        <table class="table table-striped table-hover mt-3">
-            <thead>
-                <tr>
-                    <th>Concluída</th>
-                    <th>Título</th>
-                    <th>Descrição</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var tarefa in Model)
-                {
-                    <tr>
-                        <td>
-                            <form method="post" asp-action="ToggleConcluida" asp-route-id="@tarefa.Id" style="display:inline;">
-                                <input type="checkbox" name="Concluida" onchange="this.form.submit()" @(tarefa.Concluida ? "checked" : "") />
-                            </form>
-                        </td>
-                        <td>@tarefa.Titulo</td>
-                        <td>@tarefa.Descricao</td>
-                        <td>
-                            <a href="/Tarefas/Edit/@tarefa.Id" class="btn btn-edit btn-sm">Editar</a>
-                            <form method="post" asp-action="Delete" asp-route-id="@tarefa.Id" style="display:inline;" onsubmit="return confirm('Confirma exclusão da tarefa?');">
-                                <button type="submit" class="btn btn-delete btn-sm">Excluir</button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-                @if (!Model.Any())
-                {
-                    <tr>
-                        <td colspan="4" class="text-center text-muted">Nenhuma tarefa cadastrada.</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
     </div>
 
-    <!-- Bootstrap JS Bundle (com Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" 
-            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <!-- Formulário oculto -->
+    <div id="formularioTarefa" class="mb-4" style="display: none;">
+        <form id="formNovaTarefa">
+            <div class="mb-3">
+                <label class="form-label">Título</label>
+                <input type="text" class="form-control" id="titulo" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descrição</label>
+                <textarea class="form-control" id="descricao" rows="3" required></textarea>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="concluida">
+                <label class="form-check-label">Concluída</label>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" onclick="cancelarFormulario()">Cancelar</button>
+                <button type="submit" class="btn" style="background-color: #6e57b3; color: white;">Salvar</button>
+            </div>
+        </form>
+        <hr />
+    </div>
+
+    <!-- Lista de tarefas -->
+    <table class="table table-striped table-hover">
+        <thead style="background-color: #b19cd9; color: white;">
+            <tr>
+                <th>Concluída</th>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaTarefas">
+            <!-- Linhas dinâmicas via JS -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Rodapé -->
+<footer style="background-color: #b19cd9; color: white; padding: 20px 0; font-weight: 600; text-align: center;">
+    <div>Gerenciador de Tarefas - Organize seu dia com facilidade 🚀</div>
+</footer>
+
+<!-- Scripts -->
+<script>
+    const btnMostrarFormulario = document.getElementById("btnMostrarFormulario");
+    const formularioTarefa = document.getElementById("formularioTarefa");
+    const formNovaTarefa = document.getElementById("formNovaTarefa");
+    const tabelaTarefas = document.getElementById("tabelaTarefas");
+
+    let tarefas = [];
+
+    btnMostrarFormulario.addEventListener("click", () => {
+        formularioTarefa.style.display = "block";
+        btnMostrarFormulario.style.display = "none";
+    });
+
+    function cancelarFormulario() {
+        formularioTarefa.style.display = "none";
+        btnMostrarFormulario.style.display = "block";
+        formNovaTarefa.reset();
+    }
+
+    formNovaTarefa.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const titulo = document.getElementById("titulo").value;
+        const descricao = document.getElementById("descricao").value;
+        const concluida = document.getElementById("concluida").checked;
+
+        tarefas.push({ titulo, descricao, concluida });
+        atualizarTabela();
+        cancelarFormulario();
+    });
+
+    function atualizarTabela() {
+        tabelaTarefas.innerHTML = "";
+
+        tarefas.forEach((tarefa, index) => {
+            // Define a classe da linha conforme o status
+            const classeLinha = tarefa.concluida ? "table-success" : "table-warning";
+            const statusTexto = tarefa.concluida ? "Concluída" : "Pendente";
+
+            const linha = document.createElement("tr");
+            linha.className = classeLinha;
+            linha.innerHTML = `
+                <td>
+                    <input type="checkbox" ${tarefa.concluida ? "checked" : ""} onchange="toggleConcluida(${index})">
+                </td>
+                <td>${tarefa.titulo}</td>
+                <td>${tarefa.descricao}</td>
+                <td>
+                    <button type="button" class="btn btn-sm ${tarefa.concluida ? "btn-success" : "btn-warning text-dark"}" disabled>
+                        ${statusTexto}
+                    </button>
+                    <button class="btn btn-sm btn-warning me-2 ms-2" onclick="editarTarefa(${index})">Editar</button>
+                    <button class="btn btn-sm btn-danger" onclick="excluirTarefa(${index})">Excluir</button>
+                </td>
+            `;
+            tabelaTarefas.appendChild(linha);
+        });
+    }
+
+    // Nova função para alternar concluída
+    function toggleConcluida(index) {
+        tarefas[index].concluida = !tarefas[index].concluida;
+        atualizarTabela();
+    }
+
+    function excluirTarefa(index) {
+        if (confirm("Deseja excluir esta tarefa?")) {
+            tarefas.splice(index, 1);
+            atualizarTabela();
+        }
+    }
+
+    function editarTarefa(index) {
+        const tarefa = tarefas[index];
+        document.getElementById("titulo").value = tarefa.titulo;
+        document.getElementById("descricao").value = tarefa.descricao;
+        document.getElementById("concluida").checked = tarefa.concluida;
+
+        tarefas.splice(index, 1); // remove e reinserir ao salvar
+        formularioTarefa.style.display = "block";
+        btnMostrarFormulario.style.display = "none";
+    }
+</script>
+
 </body>
 </html>
